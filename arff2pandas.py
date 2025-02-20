@@ -25,7 +25,7 @@ def load(arff_file,decode_str=True):
     if decode_str:        
         df_str = df.select_dtypes(include=['object'])        
         if not df_str.empty:
-            df[df_str.columns] = df_str.applymap(lambda x:x.decode('utf-8'))      
+            df[df_str.columns] = df_str.map(lambda x:x.decode('utf-8'))      
     return df
 
 
@@ -50,10 +50,10 @@ def _get_arff_meta_dict(dataframe):
         if dataframe[c].dtype == 'object':
             meta[c]['type'] = 'nominal'
             meta[c]['values'] = list(dataframe[c].unique())
-            meta[c]['min'] = np.NaN
-            meta[c]['max'] = np.NaN
-            meta[c]['mean'] = np.NaN
-            meta[c]['std'] = np.NaN
+            meta[c]['min'] = np.nan
+            meta[c]['max'] = np.nan
+            meta[c]['mean'] = np.nan
+            meta[c]['std'] = np.nan
         elif dataframe[c].dtype  == 'float64':            
             meta[c]['type'] = 'numeric'
             meta[c]['values'] = len(dataframe[c].unique())
@@ -66,8 +66,8 @@ def _get_arff_meta_dict(dataframe):
             meta[c]['values'] = len(dataframe[c].unique())
             meta[c]['min'] = dataframe[c].min()
             meta[c]['max'] = dataframe[c].max()
-            meta[c]['mean'] = np.NaN
-            meta[c]['std'] = np.NaN
+            meta[c]['mean'] = np.nan
+            meta[c]['std'] = np.nan
     return meta
 
 
